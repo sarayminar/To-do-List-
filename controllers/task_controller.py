@@ -49,17 +49,23 @@ def ver_tareas():
             print(Fore.YELLOW + "📭 No hay tareas registradas.")
     except Exception as err:
         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al intentar mostrar las tareas: {err}")
-
-def ver_tarea_por_id():
-    while True:
+        
+def ver_tarea_por_id(id):
+    if id:
+        idTask = id;
+    else:
         idTask = obtener_id()
-        task = db.query(Task).get(idTask)
-        if task:
-            estado = Fore.GREEN + "✅ Completada" if task.status else Fore.RED + "❌ No completada"
-            print(Fore.CYAN + f"🆔 {task.id} -  {task.title}: {task.description} [{estado}]")
-            return
-        else:
-            print(Fore.RED + "❌ ID no encontrado. Comprueba que la tarea exista.")
+        
+# def ver_tarea_por_id():
+#     while True:
+#         idTask = obtener_id()
+#         task = db.query(Task).get(idTask)
+#         if task:
+#             estado = Fore.GREEN + "✅ Completada" if task.status else Fore.RED + "❌ No completada"
+#             print(Fore.CYAN + f"🆔 {task.id} -  {task.title}: {task.description} [{estado}]")
+#             return
+#         else:
+#             print(Fore.RED + "❌ ID no encontrado. Comprueba que la tarea exista.")
 
 def actualizar_tarea():
     id_tarea = obtener_id()
