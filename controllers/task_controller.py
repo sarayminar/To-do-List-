@@ -52,20 +52,18 @@ def ver_tareas():
         
 def ver_tarea_por_id(id):
     if id:
-        idTask = id;
+        idTask = id
     else:
         idTask = obtener_id()
-        
-# def ver_tarea_por_id():
-#     while True:
-#         idTask = obtener_id()
-#         task = db.query(Task).get(idTask)
-#         if task:
-#             estado = Fore.GREEN + "✅ Completada" if task.status else Fore.RED + "❌ No completada"
-#             print(Fore.CYAN + f"🆔 {task.id} -  {task.title}: {task.description} [{estado}]")
-#             return
-#         else:
-#             print(Fore.RED + "❌ ID no encontrado. Comprueba que la tarea exista.")
+    while True:
+        idTask = obtener_id()
+        task = db.query(Task).get(idTask)
+        if task:
+            estado = Fore.GREEN + "✅ Completada" if task.status else Fore.RED + "❌ No completada"
+            print(Fore.CYAN + f"🆔 {task.id} -  {task.title}: {task.description} [{estado}]")
+            return
+        else:
+            print(Fore.RED + "❌ ID no encontrado. Comprueba que la tarea exista.")
 
 def actualizar_tarea():
     id_tarea = obtener_id()
