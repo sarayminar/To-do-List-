@@ -23,9 +23,22 @@ def crear_tarea():
 
     while True:
         try:
-            descripcion = input(Fore.BLUE + "🧾 Introduce la descripción de la tarea: ")
+            descripcion = input(Fore.BLUE + "🧾 Introduce la descripción de la tarea (Opcional): ")
             if len(descripcion) > 500:
                 raise ValueError(Fore.RED + "❌ La descripción es demasiado larga. (Máx. 500 caracteres).")
+            break
+        except ValueError as err:
+            print(Fore.RED + f"{err}")
+        except Exception as err:
+            print(Fore.RED + f"❌ Ocurrió un error inesperado al procesar la descripción: {err}")
+
+    while True:
+        try:
+            user = input(Fore.BLUE + "🧾 Introduce tu nombre de la tarea: ")
+            if len(descripcion) > 100:
+                raise ValueError(Fore.RED + "❌ El nombre es demasiado largo. (Máx. 100 caracteres).")
+            if not titulo.strip():
+                raise ValueError(Fore.RED + "❌ El nombre no puede estar vacío.")
             break
         except ValueError as err:
             print(Fore.RED + f"{err}")
