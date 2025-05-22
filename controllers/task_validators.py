@@ -96,11 +96,11 @@ def priority_validator(tarea = None):
 
 def validador_estado_validator(tarea = None):
     while True:
-            try:
-                status = not tarea.status if input(Fore.BLUE + "✍🏻 Introduzca algo para cambiar el estado de la tarea: ") else tarea.status
-                return status
-            except Exception as e:
-                print(Fore.RED + f"❌ Ocurrió un error inesperado al cambiar el estado: {e}")
+        try:
+            status = not tarea.status if input(Fore.BLUE + "✍🏻 Introduzca algo para cambiar el estado de la tarea: ") else tarea.status
+            return status
+        except Exception as e:
+            print(Fore.RED + f"❌ Ocurrió un error inesperado al cambiar el estado: {e}")
 
 
 def obtener_id(bool = None):
