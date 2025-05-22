@@ -6,7 +6,10 @@ from controllers.task_controller import (
     ver_tareas,
     ver_tarea_por_id,
     actualizar_tarea,
-    eliminar_tarea
+    eliminar_tarea,
+    searchAllTasksForUser,
+    searchAllTasksForUserStatus,
+    searchAllTasksForUserStatusPriority
 )
 
 init(autoreset=True)
@@ -19,7 +22,10 @@ def menu():
         print("3️⃣  Buscar tarea por ID")
         print("4️⃣  Actualizar una tarea existente")
         print("5️⃣  Eliminar una tarea")
-        print("6️⃣  Salir")
+        print("6️⃣ Buscar tareas por usuario")
+        print("7️⃣ Buscar tareas por estado")
+        print("8️⃣ Buscar tareas por prioridad")
+        print("0️⃣ Salir")
 
         opcion = input(Fore.YELLOW + "👉 Selecciona una opción (1-6): ")
 
@@ -38,9 +44,15 @@ def menu():
         elif opcion == "5":
             print(Fore.BLUE + "\n🗑️ Eliminando tarea...")
             eliminar_tarea()
-        elif opcion == "6":
+        elif opcion == "0":
             print(Fore.MAGENTA + "\n👋 ¡Hasta luego! ¡Que tengas un buen día! 🌟")
             break
+        elif opcion == "6":
+            searchAllTasksForUser()
+        elif opcion == "7":
+            searchAllTasksForUserStatus()
+        elif opcion == "8":
+            searchAllTasksForUserStatusPriority()
         else:
             print(Fore.RED + "⚠️ Opción no válida. Por favor, intenta de nuevo con un número del 1 al 6.")
 

@@ -4,8 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # URL de conexión (ajusta la contraseña si es diferente a '1234')
-DATABASE_URL = "postgresql+pg8000://postgres:123456@localhost/todo_db" #Satur
-#DATABASE_URL = "postgresql+pg8000://postgres:clancy21@localhost/todo_db" #Saray
+#DATABASE_URL = "postgresql+pg8000://postgres:123456@localhost/todo_db" #Satur
+DATABASE_URL = "postgresql+pg8000://postgres:clancy21@localhost/todo_db" 
 
 # Motor de conexión
 engine = create_engine(DATABASE_URL)
