@@ -1,4 +1,4 @@
-# views/task_view.py
+# views/main.py
 
 from colorama import init, Fore, Style
 from controllers.task_controller import (
