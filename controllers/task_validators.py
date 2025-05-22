@@ -5,7 +5,7 @@ def title_validator(tarea = None):
     while True:
         try:
             if tarea :
-                titulo = input(Fore.CYAN + f"📝 Nuevo título (anterior: {tarea.title}): ")
+                titulo = input(Fore.BLUE + f"📝 Nuevo título (anterior: {tarea.title}): ") or tarea.title
             else:
                 titulo = input(Fore.BLUE + "📝 Introduce el título de la tarea: ")
             if not titulo.strip():
@@ -25,7 +25,7 @@ def description_validator(tarea = None):
     while True:
         try:
             if tarea:
-                descripcion = input(Fore.CYAN + f"🧾 Nueva descripción (anterior: {tarea.description}): ")
+                descripcion = input(Fore.BLUE + f"🧾 Nueva descripción (anterior: {tarea.description}): ") or tarea.description
             else:
                 descripcion = input(Fore.BLUE + "🧾 Introduce la descripción de la tarea (Opcional): ")
             if descripcion.isdigit():
@@ -42,11 +42,11 @@ def user_validator(bool):
     while True:
         try:
             if bool:
-                user = input(Fore.BLUE + "🧾 Introduce tu alias/nombre: ")
+                user = input(Fore.BLUE + "🧾 Introduce tu alias/nombre: ") 
             else:
                 user = input(Fore.BLUE + "🧾 Introduce el alias/nombre a buscar: ")
             if not user.strip():
-                raise ValueError(Fore.RED + "❌ El alias/nombre no puede estar vacío.")
+                raise ValueError(Fore.RED + "❌ El alias/nombre no puede estar vacío.") 
             if user.isdigit():
                 raise ValueError(Fore.RED + "❌ El alias/nombre no puede ser un valor numérico.")
             if len(user) > 50:
@@ -61,7 +61,7 @@ def category_validator(tarea = None):
     while True:
         try:
             if tarea:
-                category = input(f"Nueva categoria (anterior: {tarea.category}): ")
+                category = input(Fore.BLUE + f"🗃️  Nueva categoria (anterior: {tarea.category}): ") or tarea.category
             else:
                 category = input(Fore.BLUE + "🧾 Introduce una categoria (opcional): ")
             if category.isdigit():
@@ -78,7 +78,7 @@ def priority_validator(tarea = None):
     while True:
         try:
             if tarea:
-                priority = input(f"Nueva prioridad (anterior: {tarea.category}): ")
+                priority = input(Fore.BLUE +f"⏳ Nueva prioridad (anterior: {tarea.priority}): ") or tarea.priority
             else:
                 priority = input(Fore.BLUE + "🧾 Introduce la prioridad: ")
             if not priority.strip():
@@ -97,15 +97,14 @@ def priority_validator(tarea = None):
 def validador_estado_validator(tarea = None):
     while True:
             try:
-                status = not tarea.status if input(
-                    "Introduzca algo para cambiar el estado de la tarea: ") else tarea.status
+                status = not tarea.status if input(Fore.BLUE + "✍🏻 Introduzca algo para cambiar el estado de la tarea: ") else tarea.status
                 return status
             except Exception as e:
                 print(Fore.RED + f"❌ Ocurrió un error inesperado al cambiar el estado: {e}")
 
 
 def obtener_id(bool = None):
-    id_tarea_str = input(Fore.CYAN + "✏️ Introduce el ID de la tarea: ")
+    id_tarea_str = input(Fore.BLUE + "✏️  Introduce el ID de la tarea: ")
     try:
         id_tarea = int(id_tarea_str)
         return id_tarea
@@ -115,14 +114,14 @@ def obtener_id(bool = None):
     
 def elegir_estado():
     try:
-        status = input("Introduzca el estado que se busca: ").lower()
+        status = input(Fore.CYAN + "📝 Introduzca el estado que se busca (completada/no completada): ").lower() 
         if status == "completada":
             return True
         elif status == "no completada": 
             return False
         else:
-            raise ValueError(f"Valor no válido de estado")
+            raise ValueError(Fore.YELLOW + "⚠️  Valor no válido de estado")
     except ValueError as err:
-        print(err)
+        print(Fore.RED + f"❌ {err}")
     except Exception as err:
-        print(f"Error no controlado {err}")
+        print(Fore.RED + f"❗ Error no controlado: {err}")

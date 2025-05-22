@@ -81,22 +81,34 @@ def eliminar_tarea():
 
 def searchAllTasksForUser():
     while True:
-        userSearch = user_validator(False) 
-        tasks = db.query(Task).filter(Task.user.ilike(userSearch)).all()
-        mostrar_todas_tareas(tasks)
-        return
+        try:
+            userSearch = user_validator(False) 
+            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).all()
+            mostrar_todas_tareas(tasks)
+            return
+        except Exception as err:
+            print(Fore.RED + f"❌ Ha ocurrido un error inesperado {err}")
+
 
 def searchAllTasksForUserStatus():
     while True:
-        userSearch = user_validator(False) 
-        tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).all()
-        mostrar_todas_tareas(tasks)
-        return
+        try:
+            userSearch = user_validator(False) 
+            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).all()
+            mostrar_todas_tareas(tasks)
+            return
+        except Exception as err:
+            print(Fore.RED +  f"❌ Ha ocurrido un error inesperado {err}")
+
     
 def searchAllTasksForUserStatusPriority():
     while True:
-        userSearch = user_validator(False) 
-        tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).filter(Task.priority == priority_validator()).all()
-        mostrar_todas_tareas(tasks)
-        return
+        try:
+            userSearch = user_validator(False) 
+            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).filter(Task.priority == priority_validator()).all()
+            mostrar_todas_tareas(tasks)
+            return
+        except Exception as err:
+            print(Fore.RED + f"❌ Ha ocurrido un error inesperado {err}")
+
     
