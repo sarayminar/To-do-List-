@@ -3,6 +3,7 @@ from datetime import datetime
 from colorama import init, Fore, Style
 from database.db import SessionLocal
 from models.task_model import Task
+from controllers.task_validators import title_validator
 
 init(autoreset=True)
 
@@ -10,20 +11,8 @@ init(autoreset=True)
 db = SessionLocal()
 
 def crear_tarea():
-    while True:
-        try:
-            titulo = input(Fore.BLUE + "📝 Introduce el título de la tarea: ")
-            if not titulo.strip():
-                raise ValueError(Fore.RED + "❌ El alias/nombre no puede estar vacío.")
-            if titulo.isdigit():
-                raise ValueError(Fore.RED + "❌ El título no puede ser un valor numérico.")
-            if len(titulo) > 255:
-                raise ValueError(Fore.RED + "❌ El título es demasiado largo. (Máx. 255 caracteres).")
-            break
-        except ValueError as err:
-            print(Fore.RED + f"{err}")
-        except Exception as err:
-            print(Fore.RED + f"❌ Ocurrió un error inesperado al procesar el título: {err}")
+
+    titulo = title_validator();
 
     while True:
         try:
