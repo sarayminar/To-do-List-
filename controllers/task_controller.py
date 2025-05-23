@@ -11,28 +11,26 @@ init(autoreset=True)
 # Crear una sesión de la base de datos
 db = SessionLocal()
 
-def crear_tarea():
+def crear_tarea(user_id):
 
     titulo = title_validator()
     descripcion = description_validator()
-    user = user_validator(True)
     category = category_validator()
     priority = priority_validator()
     
-    
     value = False
-    nueva_tarea = Task(title=titulo, description=descripcion, status=value, user=user, category=category, priority=priority);
+    nueva_tarea = Task(title=titulo, description=descripcion, status=value, user_id=user_id, category=category, priority=priority)
     db.add(nueva_tarea)
     db.commit()
     print(Fore.GREEN + f"✅ Tarea '{titulo}' creada exitosamente. ¡Bien hecho! 🎉")
-    ver_tarea_por_id(nueva_tarea.id);
+    ver_tarea_por_id(nueva_tarea.id)
 
-def ver_tareas():
-    try:
-        tareas = db.query(Task).all()
-        mostrar_todas_tareas(tareas)
-    except Exception as err:
-        print(Fore.RED + f"❌ Ha ocurrido un error inesperado al intentar mostrar las tareas: {err}")
+# def ver_tareas(user_id):
+#     try:
+#         tareas = db.query(Task).all()
+#         mostrar_todas_tareas(tareas)
+#     except Exception as err:
+#         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al intentar mostrar las tareas: {err}")
 
 def ver_tarea_por_id(id = None):
     if id:
@@ -73,39 +71,36 @@ def eliminar_tarea():
             db.delete(tarea)
             db.commit()
             print(Fore.GREEN + f"🗑️ Tarea '{tarea.title}' eliminada correctamente.")
-            ver_tareas()
+            # ver_tareas()
         else:
             print(Fore.RED + "❌ Tarea no encontrada. No se pudo eliminar.")
     except Exception as err:
         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al eliminar la tarea: {err}")
 
-def searchAllTasksForUser():
+def searchAllTasksForUser(user_id):
     while True:
         try:
-            userSearch = user_validator(False) 
-            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).all()
+            tasks = db.query(Task).filter(Task.user_id == user_id).all()
             mostrar_todas_tareas(tasks)
             return
         except Exception as err:
             print(Fore.RED + f"❌ Ha ocurrido un error inesperado {err}")
 
 
-def searchAllTasksForUserStatus():
+def searchAllTasksForUserStatus(user_id):
     while True:
         try:
-            userSearch = user_validator(False) 
-            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).all()
+            tasks = db.query(Task).filter(Task.user_id == user_id).filter(Task.status == elegir_estado()).all()
             mostrar_todas_tareas(tasks)
             return
         except Exception as err:
             print(Fore.RED +  f"❌ Ha ocurrido un error inesperado {err}")
 
     
-def searchAllTasksForUserStatusPriority():
+def searchAllTasksForUserStatusPriority(user_id):
     while True:
         try:
-            userSearch = user_validator(False) 
-            tasks = db.query(Task).filter(Task.user.ilike(userSearch)).filter(Task.status == elegir_estado()).filter(Task.priority == priority_validator()).all()
+            tasks = db.query(Task).filter(Task.user_id == user_id).filter(Task.status == elegir_estado()).filter(Task.priority == priority_validator()).all()
             mostrar_todas_tareas(tasks)
             return
         except Exception as err:
