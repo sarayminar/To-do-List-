@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from colorama import init, Fore, Style
 from database.db import SessionLocal
 from models.task_model import Task
@@ -9,12 +11,13 @@ init(autoreset=True)
 # Crear una sesión de la base de datos
 db = SessionLocal()
 
-def crear_tarea():
+def crear_tarea(user_id):
+
     titulo = title_validator()
     descripcion = description_validator()
     category = category_validator()
     priority = priority_validator()
-
+    
     value = False
     nueva_tarea = Task(title=titulo, description=descripcion, status=value, user_id=user_id, category=category, priority=priority)
     db.add(nueva_tarea)
