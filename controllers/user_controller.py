@@ -3,6 +3,7 @@ from database.db import SessionLocal
 from models.users_model import User
 from utils.security import hashPassword, checkPassword
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
 
 db = SessionLocal()
 
@@ -11,13 +12,13 @@ def userRegister():
         userName = userName_validator()
         password = password_validator(True)
 
-        existingUser = db.query(User).filter_by(name=userName).first
+        existingUser = db.query(User).filter_by(username=userName).first
 
         if existingUser: 
             print(f"El nombre de usuario {userName} ya existe, por favor elige otro.")
     
         hashedPassword = hashPassword(password)
-        newUser = User(name = userName , password_hash = hashedPassword)
+        newUser = User(username = userName , password_hash = hashedPassword)
         return newUser
     except IntegrityError as err: 
         db.rollback()
@@ -31,7 +32,7 @@ def loginUser():
         print("Iniciando sesión...")
         userName = userName_validator()
         password = password_validator()
-        user = db.query(User).filter_by(userName=userName).first
+        user = db.query(User).filter_by(username=userName).first
         if user and checkPassword(password, user.password_hash):
             print(f"¡Bienvenido/a! {user.name}")
             return user
