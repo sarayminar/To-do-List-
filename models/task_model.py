@@ -19,7 +19,7 @@ class Task(Base):
     category = Column(String(25), nullable=True)
     priority = Column(String(25), nullable=False)
 
-    user = relationship("User")
+    user = relationship("User", back_populates = "tasks")
 
     def __repr__(self):
         return f"<Task(id={self.id}, title='{self.title}', description='{self.description}', status = '{self.status}', createDate = '{self.createDate}', lastEditDate = '{self.lastEditDate}', user_id = '{self.user_id}', category = '{self.category}', priority = '{self.priority}')>"

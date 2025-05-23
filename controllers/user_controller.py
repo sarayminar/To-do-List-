@@ -12,13 +12,17 @@ def userRegister():
         userName = userName_validator()
         password = password_validator(True)
 
-        existingUser = db.query(User).filter_by(username=userName).first
+        existingUser = db.query(User).filter_by(username=userName).first()
+        print(existingUser)
+
 
         if existingUser: 
             print(f"El nombre de usuario {userName} ya existe, por favor elige otro.")
     
         hashedPassword = hashPassword(password)
         newUser = User(username = userName , password_hash = hashedPassword)
+        db.add(newUser)
+        db.commit()
         return newUser
     except IntegrityError as err: 
         db.rollback()
@@ -32,14 +36,14 @@ def loginUser():
         print("Iniciando sesión...")
         userName = userName_validator()
         password = password_validator()
-        user = db.query(User).filter_by(username=userName).first
+        user = db.query(User).filter_by(username=userName).first()
         if user and checkPassword(password, user.password_hash):
-            print(f"¡Bienvenido/a! {user.name}")
+            print(f"¡Bienvenido/a! {user.username}")
             return user
         else:
             print("El nombre de usuario o la contraseña son incorrectos.")
             return None
     except Exception as err:
-        print("Ha ocurrido un error inesperado al iniciar sesión")
+        print(f"Ha ocurrido un error inesperado al iniciar sesión {err}")
 
 

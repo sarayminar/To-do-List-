@@ -35,6 +35,7 @@ def menu():
             print("8️⃣  Cerrar sesión")
             print("0️⃣  Salir")
 
+            opcion = None
             opcion = input(Fore.YELLOW + "👉 Selecciona una opción (0-8): ")
 
             if opcion == "1":
@@ -62,7 +63,7 @@ def menu():
                 print(Fore.MAGENTA + "\n👋  ¡Hasta luego! ¡Que tengas un buen día! 🌟")
                 exit()
             elif opcion == "8":
-                user = None
+                user = None 
             
         else:
             print(Fore.CYAN +  "\n📋 --- MENÚ TO-DO LIST ---")

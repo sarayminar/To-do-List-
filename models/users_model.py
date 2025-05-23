@@ -11,7 +11,7 @@ class User(Base):
     password_hash = Column(String(255), nullable=False)
     createDate = Column(DateTime(timezone = True), nullable=False, default=func.now())
     
-    tasks = relationship("Task", backref = "user_rel", order_by = "Task.createDate")
+    tasks = relationship("Task", order_by = "Task.createDate", back_populates="user", cascade = "all, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, username='{self.username}', createDate = '{self.createDate}')>"
