@@ -1,5 +1,5 @@
 
-from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy import Column, Integer, String, DateTime, func, Boolean
 from database.base import Base
 from sqlalchemy.orm import relationship 
 
@@ -10,6 +10,7 @@ class User(Base):
     username = Column(String(50), nullable=False, unique=True, index=True)
     password_hash = Column(String(255), nullable=False)
     createDate = Column(DateTime(timezone = True), nullable=False, default=func.now())
+    is_admin = Column(Boolean(), nullable=False)
     
     tasks = relationship("Task", order_by = "Task.createDate", back_populates="user", cascade = "all, delete-orphan")
 

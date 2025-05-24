@@ -12,7 +12,6 @@ init(autoreset=True)
 db = SessionLocal()
 
 def crear_tarea(user_id):
-
     titulo = title_validator()
     descripcion = description_validator()
     category = category_validator()
@@ -25,12 +24,12 @@ def crear_tarea(user_id):
     print(Fore.GREEN + f"✅ Tarea '{titulo}' creada exitosamente. ¡Bien hecho! 🎉")
     ver_tarea_por_id(nueva_tarea.id)
 
-# def ver_tareas(user_id):
-#     try:
-#         tareas = db.query(Task).all()
-#         mostrar_todas_tareas(tareas)
-#     except Exception as err:
-#         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al intentar mostrar las tareas: {err}")
+def ver_tareas():
+     try:
+         tareas = db.query(Task).all()
+         mostrar_todas_tareas(tareas)
+     except Exception as err:
+         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al intentar mostrar las tareas: {err}")
 
 def ver_tarea_por_id(id = None):
     if id:
@@ -63,7 +62,7 @@ def actualizar_tarea():
     else:
         print(Fore.RED + "❌ Tarea no encontrada. No se pudo actualizar.")
 
-def eliminar_tarea():
+def eliminar_tarea(admin):
     try:
         id_tarea = obtener_id()
         tarea = db.query(Task).get(id_tarea)
@@ -71,11 +70,25 @@ def eliminar_tarea():
             db.delete(tarea)
             db.commit()
             print(Fore.GREEN + f"🗑️ Tarea '{tarea.title}' eliminada correctamente.")
-            # ver_tareas()
+            if not admin:
+                searchAllTasksForUser(tarea.user_id);
+            else:
+                ver_tareas()
         else:
             print(Fore.RED + "❌ Tarea no encontrada. No se pudo eliminar.")
     except Exception as err:
         print(Fore.RED + f"❌ Ha ocurrido un error inesperado al eliminar la tarea: {err}")
+
+def searchTasksForUserTitle(user_id):
+    while True:
+        while True:
+            try:
+                title = title_validator();
+                tasks = db.query(Task).filter(Task.user_id == user_id).filter(Task.title == title).all();
+                mostrar_todas_tareas(tasks)
+                return
+            except Exception as err:
+                print(Fore.RED + f"❌ Ha ocurrido un error inesperado {err}")
 
 def searchAllTasksForUser(user_id):
     while True:
@@ -86,7 +99,6 @@ def searchAllTasksForUser(user_id):
         except Exception as err:
             print(Fore.RED + f"❌ Ha ocurrido un error inesperado {err}")
 
-
 def searchAllTasksForUserStatus(user_id):
     while True:
         try:
@@ -95,7 +107,6 @@ def searchAllTasksForUserStatus(user_id):
             return
         except Exception as err:
             print(Fore.RED +  f"❌ Ha ocurrido un error inesperado {err}")
-
     
 def searchAllTasksForUserStatusPriority(user_id):
     while True:

@@ -14,8 +14,7 @@ class Task(Base):
     status = Column(Boolean(), nullable=False)
     createDate = Column(DateTime(timezone = True), nullable=False, default=func.now())
     lastEditDate = Column(DateTime(timezone = True), nullable=True, default=func.now(), onupdate=func.now())
-    # user = Column(String(50), nullable=False)
-    user_id = Column(Integer, ForeignKey("users.id",ondelete="CASCADE"), nullable=False, index = True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index = True)
     category = Column(String(25), nullable=True)
     priority = Column(String(25), nullable=False)
 
