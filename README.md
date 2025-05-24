@@ -55,7 +55,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
 
 ### Prerrequisitos
 
-* **Python 3.13.3** (o una versión compatible, superior a 3.8 es recomendable).
+* **Python 3.13.3** (versión compatible o superior).
 * **PostgreSQL**: Asegúrate de tener un servidor PostgreSQL instalado y en ejecución.
 
 ### 1. Clonar el Repositorio (si aplica)
