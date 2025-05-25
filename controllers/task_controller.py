@@ -25,8 +25,7 @@ def crear_tarea(user_id):
             category = category_validator()
             priority = priority_validator()
 
-            value = False
-            nueva_tarea = Task(title=titulo, description=descripcion, status=value, user_id=user_id, category=category,
+            nueva_tarea = Task(title=titulo, description=descripcion, status=False, user_id=user_id, category=category,
                                priority=priority)
             db.add(nueva_tarea)
             db.commit()
