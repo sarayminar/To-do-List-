@@ -26,9 +26,10 @@ user = None
 
 def menu():
     global user
-    with SessionLocal() as db:
-        while True:
-            # --- Menu for Not Logged In User ---
+    
+    while True:
+        with SessionLocal() as db:
+        # --- Menu for Not Logged In User ---
             if not user:
                 print(Fore.CYAN + "\n📋 --- TO-DO LIST ---")
                 print(Fore.BLUE + "1️⃣  Iniciar sesión")
@@ -41,7 +42,7 @@ def menu():
                     user = loginUser()
                 elif opcion == "2":
                     print(Fore.BLUE + "\n➕ Creando una nueva cuenta...")
-                    user = userRegister()
+                    user = userRegister(db)
                 elif opcion == "0":
                     print(Fore.MAGENTA + "\n👋  ¡Hasta luego! ¡Que tengas un buen día! 🌟")
                     exit()
@@ -49,7 +50,7 @@ def menu():
                     print(
                         Fore.RED + "⚠️  Opción no válida. Por favor, intenta de nuevo con un número del 0 al 2.")
 
-            # --- Menu for Standard User ---
+        # --- Menu for Standard User ---
             elif user and not user.is_admin:
                 print(Fore.CYAN + "\n📋 --- MENÚ TO-DO LIST ---")
                 print(Fore.GREEN + f"👤 Bienvenido: {user.username}")
@@ -96,7 +97,7 @@ def menu():
                     print(
                         Fore.RED + "⚠️  Opción no válida. Por favor, intenta de nuevo con un número del 0 al 8.")
 
-            # --- Menu for Admin User ---
+        # --- Menu for Admin User ---
             else:  # user.is_admin is True
                 print(Fore.RED + "🛡️ === PANEL DE ADMINISTRACIÓN === 🛡️")
                 print(Fore.GREEN + f"Bienvenido, Administrador: {user.username}")

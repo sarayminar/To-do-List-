@@ -17,28 +17,28 @@ def get_db():
         db.close()
 
 
-def userRegister():
-    with SessionLocal() as db:
-        try:
-            userName = userName_validator()
-            password = password_validator(True)
+def userRegister(db):
+    try:
+        userName = userName_validator()
+        password = password_validator(True)
 
-            existingUser = db.query(User).filter_by(username=userName).first()
-            if existingUser:
-                print(Fore.YELLOW + f"⚠️ El nombre de usuario {userName} ya existe, por favor elige otro.")
+        existingUser = db.query(User).filter_by(username=userName).first()
+        if existingUser:
+            print(Fore.YELLOW + f"⚠️ El nombre de usuario {userName} ya existe, por favor elige otro.")
 
-            hashedPassword = hashPassword(password)
-            newUser = User(username=userName, password_hash=hashedPassword, is_admin=False)
-            db.add(newUser)
-            db.commit()
-            return newUser
-        except IntegrityError as err:
-            db.rollback()
-            print(
-                Fore.RED + f"❌ El nombre de usuario {userName} ya está en uso o tiene conflicto con la base de datos {err}.")
-        except Exception as err:
-            db.rollback()
-            print(Fore.RED + f"❌ Ha ocurrido un error inesperado al registrar al usuario {err}")
+        hashedPassword = hashPassword(password)
+        newUser = User(username=userName, password_hash=hashedPassword, is_admin=False)
+        db.add(newUser)
+        db.commit()
+        db.refresh(newUser)
+        return newUser
+    except IntegrityError as err:
+        db.rollback()
+        print(
+            Fore.RED + f"❌ El nombre de usuario {userName} ya está en uso o tiene conflicto con la base de datos {err}.")
+    except Exception as err:
+        db.rollback()
+        print(Fore.RED + f"❌ Ha ocurrido un error inesperado al registrar al usuario {err}")
 
 
 def loginUser():
