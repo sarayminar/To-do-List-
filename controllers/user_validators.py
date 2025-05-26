@@ -43,12 +43,9 @@ def password_validator(confirm_password=False):
     """
     Validates a password input, including confirmation for new passwords.
     """
-    print(
-        Fore.MAGENTA + f"DEBUG: password_validator llamado con confirm_password={confirm_password}" + Style.RESET_ALL)  # DEBUG
+
     while True:
         try:
-            print(Fore.CYAN + "➡️  El programa está esperando tu contraseña. Escríbela y pulsa Enter.")
-
             if os.name == 'nt' and getPasswordForNtSystems is not None:
                 password = getPasswordForNtSystems(Fore.YELLOW + "🔒 Introduce la contraseña: ")
             else:
@@ -56,8 +53,7 @@ def password_validator(confirm_password=False):
 
             password = password.strip()
 
-            print(
-                Fore.MAGENTA + f"DEBUG: Primera contraseña obtenida. Longitud: {len(password)}" + Style.RESET_ALL)  # DEBUG
+      
 
             if not password:
                 raise ValueError("La contraseña no puede estar vacía.")
@@ -68,11 +64,9 @@ def password_validator(confirm_password=False):
             if len(password) > 128:
                 raise ValueError("La contraseña no puede tener más de 128 caracteres.")
 
-            print(
-                Fore.MAGENTA + f"DEBUG: Primera contraseña validada. confirm_password es {confirm_password}" + Style.RESET_ALL)  # DEBUG
+      
 
             if confirm_password:  # <--- Si este bloque no se ejecuta, el problema está aquí
-                print(Fore.MAGENTA + "DEBUG: Entrando en el bloque de confirmación." + Style.RESET_ALL)  # DEBUG
 
                 print(Fore.CYAN + "➡️  Confirma tu contraseña. Escríbela de nuevo y pulsa Enter.")
 
@@ -83,22 +77,15 @@ def password_validator(confirm_password=False):
 
                 confirmedPassword = confirmedPassword.strip()
 
-                print(
-                    Fore.MAGENTA + f"DEBUG: Contraseña de confirmación obtenida. Longitud: {len(confirmedPassword)}" + Style.RESET_ALL)  # DEBUG
 
                 if password != confirmedPassword:
                     raise ValueError("Las contraseñas no coinciden. Inténtalo de nuevo.")
 
-                print(Fore.MAGENTA + "DEBUG: Las contraseñas coinciden." + Style.RESET_ALL)  # DEBUG
-
-            print(Fore.MAGENTA + "DEBUG: Saliendo de password_validator con éxito." + Style.RESET_ALL)  # DEBUG
             return password  # <--- Si llega aquí sin pedir confirmación, confirm_password es False
         except ValueError as err:
             print(Fore.RED + f"❌ Error de validación: {err}")
-            print(Fore.MAGENTA + "DEBUG: Error de validación, reintentando..." + Style.RESET_ALL)  # DEBUG
         except Exception as err:
             print(Fore.RED + f"❌ Ha ocurrido un error inesperado durante la validación: {err}")
-            print(Fore.MAGENTA + "DEBUG: Error inesperado, reintentando..." + Style.RESET_ALL)  # DEBUG
 
 
 def userNameEditor(oldUserName):
